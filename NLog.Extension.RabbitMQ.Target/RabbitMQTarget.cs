@@ -14,6 +14,9 @@ namespace NLog.Extension.RabbitMQ.Target
         {
             this.HostName = "localhost";
             this.Port = 5672;
+            this.Exchange = "";
+            this.RoutingKey = "";
+            this.VirtualHost = "";
         }
 
         public string HostName { get; set; }
@@ -24,30 +27,29 @@ namespace NLog.Extension.RabbitMQ.Target
         [RequiredParameter]
         public string Password { get; set; }
 
-        public int Port { get; set; }
-
-        public string Queue { get; set; }
+        public int Port { get; set; }       
 
         public string Exchange { get; set; }
 
+        [RequiredParameter]
         public string RoutingKey { get; set; }
+
+        public string VirtualHost { get; set; }        
 
         protected override void Write(LogEventInfo logEvent)
         {
             string logMessage = this.Layout.Render(logEvent);
 
-            var factory = new ConnectionFactory() { HostName = this.HostName, Port = this.Port, UserName = this.UserName, Password = this.Password };
+            var factory = new ConnectionFactory() { HostName = this.HostName, VirtualHost = this.VirtualHost, Port = this.Port, UserName = this.UserName, Password = this.Password };
             using (var connection = factory.CreateConnection())
             {
                 using (var channel = connection.CreateModel())
-                {
-                    channel.QueueDeclare(queue: this.Queue,
-                                 durable: false,
-                                 exclusive: false,
-                                 autoDelete: false,
-                                 arguments: null);
-
+                {                
                     var body = Encoding.UTF8.GetBytes(logMessage);
+
+                    IBasicProperties props = channel.CreateBasicProperties();
+                    props.ContentType = "text/plain";
+                    props.DeliveryMode = 2;
 
                     channel.BasicPublish(exchange: this.Exchange,
                                          routingKey: this.RoutingKey,
