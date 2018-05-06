@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>NLog.Extension.RabbitMQ.Target</id>
+        <version>1.0.0</version>
+        <title>NLog RabbitMQ</title>
+        <authors>NLog.Extension.RabbitMQ.Target</authors>
+        <owners>Fabricio Veronez</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<projectUrl>https://github.com/fabricioveronez/NLog.Extension.RabbitMQ</projectUrl>
+		<description>NLog target for the RabbitMQ.</description>
+		<releaseNotes>Initial</releaseNotes>
+		<tags>NLog RabbitMQ logging log</tags>
+		<repository type="git" url="git://github.com/fabricioveronez/NLog.Extension.RabbitMQ" />
+		<dependencies>
+		  <group targetFramework=".NETFramework4.5.1">
+			<dependency id="NLog" version="4.5.0" exclude="Build,Analyzers" />
+			<dependency id="Newtonsoft.Json" version="10.0.3" exclude="Build,Analyzers" />
+			<dependency id="RabbitMQ.Client" version="5.0.1" exclude="Build,Analyzers" />
+		  </group>
+		  <group targetFramework=".NETStandard1.5">
+			<dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+			<dependency id="NLog" version="4.5.0" exclude="Build,Analyzers" />
+			<dependency id="Newtonsoft.Json" version="10.0.3" exclude="Build,Analyzers" />
+			<dependency id="RabbitMQ.Client" version="5.0.1" exclude="Build,Analyzers" />
+		  </group>
+		</dependencies>
+    </metadata>
+    <files>
+       <file src="src\NLog.Extension.RabbitMQ.Target\bin\Release\**\*.*" target="lib"/>
+    </files>
+</package>
