@@ -1,8 +1,6 @@
 ﻿using NLog.Config;
 using NLog.Targets;
 using RabbitMQ.Client;
-using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace NLog.Extension.RabbitMQ.Target
