@@ -24,7 +24,7 @@ namespace NLog.Extension.RabbitMQ.Examples.WebApi.Controllers
         {
             try
             {
-                throw new Exception("Teste");
+                throw new Exception("This exception is a test.");
             }
             catch (Exception ex)
             {
