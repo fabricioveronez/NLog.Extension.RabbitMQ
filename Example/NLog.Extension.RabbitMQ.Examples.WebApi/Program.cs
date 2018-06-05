@@ -7,6 +7,8 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using NLog.Config;
+using NLog.LayoutRenderers;
 using NLog.Web;
 
 namespace NLog.Extension.RabbitMQ.Examples.WebApi
@@ -17,8 +19,9 @@ namespace NLog.Extension.RabbitMQ.Examples.WebApi
         {
             // NLog: setup the logger first to catch all errors
             var logger = NLogBuilder.ConfigureNLog("nlog.config").GetCurrentClassLogger();
+
             try
-            {
+            {                
                 logger.Debug("init main");
                 BuildWebHost(args).Run();
             }

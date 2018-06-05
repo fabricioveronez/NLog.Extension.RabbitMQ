@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using NLog.Extension.RabbitMQ.Examples.WebApi.Model;
 
 namespace NLog.Extension.RabbitMQ.Examples.WebApi.Controllers
 {
@@ -20,7 +16,7 @@ namespace NLog.Extension.RabbitMQ.Examples.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Log log)
+        public IActionResult Post([FromBody] Model.Log log)
         {
             try
             {
