@@ -27,8 +27,19 @@ namespace NLog.Extension.RabbitMQ.Target
 
             try
             {
+                if (string.IsNullOrEmpty(Exchange))
+                {
+                    throw new ArgumentNullException(Exchange);
+                }
+
                 factory = new ConnectionFactory() { HostName = this.HostName, VirtualHost = this.VirtualHost, Port = this.Port, UserName = this.UserName, Password = this.Password };
                 connection = factory.CreateConnection();
+
+                // Declare the exchange                
+                using (var channel = connection.CreateModel())
+                {
+                    channel.ExchangeDeclare(this.Exchange, "fanout", true, false);
+                }
             }
             catch (Exception ex)
             {
@@ -62,6 +73,7 @@ namespace NLog.Extension.RabbitMQ.Target
 
             base.CloseTarget();
         }
+
         protected override void Write(LogEventInfo logEvent)
         {
             string logMessage = this.Layout.Render(logEvent);
